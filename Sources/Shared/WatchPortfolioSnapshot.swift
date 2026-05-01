@@ -5,6 +5,7 @@ struct WatchPortfolioSnapshot: Codable, Equatable {
 
     var today: WatchTodaySnapshot
     var fire: WatchFIRESnapshot
+    var currencyCode: String
     var updatedAt: Date
 
     static let empty = WatchPortfolioSnapshot(
@@ -27,6 +28,7 @@ struct WatchPortfolioSnapshot: Codable, Equatable {
             fireDate: nil,
             investedSinceStart: 0
         ),
+        currencyCode: "EUR",
         updatedAt: .distantPast
     )
 }
@@ -55,4 +57,3 @@ struct WatchFIRESnapshot: Codable, Equatable {
         monthlyGap <= 0
     }
 }
-

@@ -1,0 +1,29 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="flameFill" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#5FD4C3"></stop>
+      <stop offset="55%" stop-color="#0E8C7E"></stop>
+      <stop offset="100%" stop-color="#0A6B60"></stop>
+    </linearGradient>
+    <linearGradient id="flameShine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"></stop>
+      <stop offset="35%" stop-color="#ffffff" stop-opacity="0.18"></stop>
+      <stop offset="80%" stop-color="#ffffff" stop-opacity="0"></stop>
+    </linearGradient>
+  </defs>
+
+  
+  <g>
+    <path d="&#xA;        M 512 232&#xA;        C 612 350, 692 432, 692 568&#xA;        C 692 702, 596 800, 512 800&#xA;        C 428 800, 332 702, 332 568&#xA;        C 332 432, 412 350, 512 232 Z" fill="url(#flameFill)"></path>
+
+    
+    <path d="&#xA;        M 512 280&#xA;        C 568 360, 612 440, 612 540&#xA;        C 612 612, 552 670, 512 670&#xA;        C 472 670, 412 612, 412 540&#xA;        C 412 440, 456 360, 512 280 Z" fill="url(#flameShine)"></path>
+
+    
+    <path d="M 432 568 L 512 488 L 592 568" fill="none" stroke="#FFFFFF" stroke-width="38" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"></path>
+
+    
+    <line x1="512" y1="488" x2="512" y2="700" stroke="#FFFFFF" stroke-width="38" stroke-linecap="round" opacity="0.92"></line>
+  </g>
+</svg>

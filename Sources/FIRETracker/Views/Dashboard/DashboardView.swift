@@ -5,9 +5,12 @@ struct DashboardView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \HoldingLot.purchaseDate) private var holdings: [HoldingLot]
     @Query private var prices: [PriceSnapshot]
+    @Query private var profiles: [FIREProfile]
+
+    @AppStorage(UserDefaultsKey.portfolioCurrency) private var selectedCurrencyCode = PortfolioCurrency.selected.rawValue
 
     @State private var isRefreshing = false
-    @State private var refreshError: String?
+    @State private var toast: ToastMessage?
 
     private let quoteService: QuoteService = YahooQuoteService()
 
@@ -22,8 +25,15 @@ struct DashboardView: View {
                 }
                 .padding()
             }
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle("FIRE Tracker")
+            .background(AppDesign.background)
+            .navigationTitle("Overview")
+            .overlay(alignment: .bottom) {
+                if let toast {
+                    ToastBanner(toast: toast)
+                        .padding()
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
             .toolbar {
                 Button {
                     Task { await refreshQuotes() }
@@ -36,11 +46,6 @@ struct DashboardView: View {
                 }
                 .disabled(isRefreshing || holdings.isEmpty)
             }
-            .alert("Could not refresh prices", isPresented: .constant(refreshError != nil)) {
-                Button("OK") { refreshError = nil }
-            } message: {
-                Text(refreshError ?? "")
-            }
         }
     }
 
@@ -48,46 +53,58 @@ struct DashboardView: View {
         PortfolioCalculator.metrics(holdings: holdings, prices: prices)
     }
 
+    private var fireProfile: FIREProfile {
+        profiles.first ?? FIREProfile()
+    }
+
+    private var firePlan: FIREPlan {
+        FIRECalculator.plan(profile: fireProfile, portfolioValue: metric.currentValue)
+    }
+
     private var hero: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 8) {
+                Circle()
+                    .fill(metric.isPositive ? AppDesign.positive : .orange)
+                    .frame(width: 6, height: 6)
+
+                Text(metric.hasMissingPrices ? "Prices needed" : "On track")
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(AppDesign.accentText)
+                    .tracking(0.4)
+                    .textCase(.uppercase)
+            }
+
             Text(heroTitle)
-                .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                .lineLimit(2)
-                .minimumScaleFactor(0.82)
+                .font(.system(.title3, design: .rounded, weight: .semibold))
+                .foregroundStyle(.primary)
+                .lineSpacing(2)
 
-            Text(metric.gain, format: .portfolioCurrency)
-                .font(.system(size: 54, weight: .bold, design: .rounded))
-                .foregroundStyle(metric.isPositive ? .green : .orange)
-                .lineLimit(1)
-                .minimumScaleFactor(0.55)
+            ProgressLine(value: firePlan.progress.doubleValue)
 
-            Text(heroSubtitle)
-                .font(.headline)
-                .foregroundStyle(.secondary)
+            HStack {
+                Text(metric.currentValue, format: .portfolioCurrency)
+                Spacer()
+                Text(firePlan.fireNumber, format: .portfolioCurrency)
+            }
+            .font(.caption.monospacedDigit())
+            .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(22)
-        .background {
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .fill(.background)
-                .shadow(color: .black.opacity(0.08), radius: 18, y: 10)
+        .padding(18)
+        .background(AppDesign.accentSoft, in: RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous)
+                .stroke(AppDesign.border, lineWidth: 0.5)
         }
     }
 
     private var heroTitle: String {
         if metric.hasMissingPrices {
-            return "Refresh prices to see growth."
+            return "\(metric.missingPriceCount) holding\(metric.missingPriceCount == 1 ? "" : "s") need today prices. Tickers only are sent to the quote provider."
         }
 
-        return metric.isPositive ? "Your money is working." : "Your plan is still compounding."
-    }
-
-    private var heroSubtitle: String {
-        if metric.hasMissingPrices {
-            return "\(metric.missingPriceCount) holding\(metric.missingPriceCount == 1 ? "" : "s") still need today prices. Tickers only are sent to the quote provider."
-        }
-
-        return "Unrealized \(metric.gainPercent.formatted(.portfolioPercent)) on \(metric.invested.formatted(.portfolioCurrency)) invested."
+        return "You are \(firePlan.progress.formatted(.portfolioPercent)) of the way to Regular FIRE. Steady contributions are doing the work."
     }
 
     private var metricsGrid: some View {
@@ -95,9 +112,9 @@ struct DashboardView: View {
             MetricCard(
                 title: "Current value",
                 value: metric.currentValue.formatted(.portfolioCurrency),
-                subtitle: "Based on latest fetched prices",
+                subtitle: metric.hasMissingPrices ? "Some prices need refresh" : "\(metric.gain.formatted(.portfolioCurrency)) all time",
                 systemImage: "banknote",
-                tint: .teal
+                tint: AppDesign.accent
             )
 
             MetricCard(
@@ -113,7 +130,7 @@ struct DashboardView: View {
                 value: (metric.annualizedReturn ?? 0).formatted(.portfolioPercent),
                 subtitle: "Since your earliest lot",
                 systemImage: "calendar.badge.clock",
-                tint: .purple
+                tint: AppDesign.accent
             )
         }
     }
@@ -146,15 +163,19 @@ struct DashboardView: View {
                     .foregroundStyle(.secondary)
             }
             .padding(16)
-            .background(.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .background(AppDesign.surface, in: RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous)
+                    .stroke(AppDesign.border, lineWidth: 0.5)
+            }
+            .shadow(color: .black.opacity(0.03), radius: 2, y: 1)
         }
         .buttonStyle(.plain)
     }
 
     private var holdingsPreview: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Largest positions")
-                .font(.headline)
+            SectionLabel(title: "Largest positions")
 
             if holdings.isEmpty {
                 ContentUnavailableView("Add your first entry", systemImage: "doc.badge.plus", description: Text("Your holdings stay in SwiftData on this device."))
@@ -165,7 +186,12 @@ struct DashboardView: View {
             }
         }
         .padding(16)
-        .background(.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .background(AppDesign.surface, in: RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous)
+                .stroke(AppDesign.border, lineWidth: 0.5)
+        }
+        .shadow(color: .black.opacity(0.03), radius: 2, y: 1)
     }
 
     @MainActor
@@ -174,8 +200,21 @@ struct DashboardView: View {
         defer { isRefreshing = false }
 
         do {
-            let tickers = Array(Set(holdings.map(\.ticker)))
-            let quotes = try await quoteService.fetchQuotes(for: tickers)
+            let requests = quoteRequests
+            let quotes = try await quoteService.fetchQuotes(for: requests)
+
+            let returnedTickers = Set(quotes.map(\.ticker))
+            let missingTickers = requests
+                .filter { !returnedTickers.contains($0.ticker) }
+                .map { request in
+                    if let isin = request.isin {
+                        return "\(request.ticker) / \(isin)"
+                    }
+
+                    return request.ticker
+                }
+                .sorted()
+
             for quote in quotes {
                 if let snapshot = prices.first(where: { $0.ticker == quote.ticker }) {
                     snapshot.price = quote.price
@@ -185,8 +224,53 @@ struct DashboardView: View {
                 }
             }
             try modelContext.save()
+
+            if !missingTickers.isEmpty {
+                showToast(
+                    title: "Some prices were not fetched",
+                    message: "No quote was returned for \(missingTickers.joined(separator: ", ")). Check the ticker or exchange suffix.",
+                    systemImage: "exclamationmark.triangle.fill"
+                )
+            }
         } catch {
-            refreshError = error.localizedDescription
+            showToast(
+                title: "Could not refresh prices",
+                message: error.localizedDescription,
+                systemImage: "wifi.exclamationmark"
+            )
+        }
+    }
+
+    private var quoteRequests: [QuoteRequest] {
+        var byTicker: [String: QuoteRequest] = [:]
+        let currency = PortfolioCurrency(rawValue: selectedCurrencyCode) ?? .eur
+
+        for holding in holdings {
+            let request = QuoteRequest(ticker: holding.ticker, isin: holding.isin, currency: currency)
+            guard !request.ticker.isEmpty else { continue }
+
+            if byTicker[request.ticker]?.isin == nil || request.isin != nil {
+                byTicker[request.ticker] = request
+            }
+        }
+
+        return byTicker.values.sorted { $0.ticker < $1.ticker }
+    }
+
+    private func showToast(title: String, message: String, systemImage: String) {
+        let toast = ToastMessage(title: title, message: message, systemImage: systemImage)
+
+        withAnimation(.spring(response: 0.28, dampingFraction: 0.88)) {
+            self.toast = toast
+        }
+
+        Task {
+            try? await Task.sleep(for: .seconds(5))
+            guard self.toast == toast else { return }
+
+            withAnimation(.easeOut(duration: 0.2)) {
+                self.toast = nil
+            }
         }
     }
 }

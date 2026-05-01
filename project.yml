@@ -1,9 +1,9 @@
 name: FIRETracker
 options:
-  bundleIdPrefix: com.vincentvillalta
+  bundleIdPrefix: com.vv
   deploymentTarget:
-    iOS: "26.0"
-    watchOS: "26.0"
+    iOS: "18.0"
+    watchOS: "11.0"
 settings:
   base:
     SWIFT_VERSION: "6.2"
@@ -14,7 +14,11 @@ targets:
     type: application
     platform: iOS
     sources:
-      - Sources/FIRETracker
+      - path: Sources/FIRETracker
+        excludes:
+          - Resources/AppIcon.icon
+      - path: Sources/FIRETracker/Resources/AppIcon.icon
+        type: folder
       - Sources/Shared
     info:
       path: Sources/FIRETracker/Resources/Info.plist
@@ -30,8 +34,9 @@ targets:
         UILaunchScreen: {}
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.vincentvillalta.firetracker
+        PRODUCT_BUNDLE_IDENTIFIER: com.vv.firetracker
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: YES
         INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsArbitraryLoads: false
     dependencies:
       - target: FIRETrackerWatchApp
@@ -42,18 +47,23 @@ targets:
     type: application
     platform: watchOS
     sources:
-      - Sources/FIRETrackerWatchApp
+      - path: Sources/FIRETrackerWatchApp
+        excludes:
+          - Resources/AppIcon.icon
+      - path: Sources/FIRETrackerWatchApp/Resources/AppIcon.icon
+        type: folder
       - Sources/Shared
     info:
       path: Sources/FIRETrackerWatchApp/Resources/Info.plist
       properties:
         CFBundleDisplayName: FIRE
         WKApplication: true
-        WKCompanionAppBundleIdentifier: com.vincentvillalta.firetracker
+        WKCompanionAppBundleIdentifier: com.vv.firetracker
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.vincentvillalta.firetracker.watchkitapp
+        PRODUCT_BUNDLE_IDENTIFIER: com.vv.firetracker.watchkitapp
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: YES
   FIRETrackerTests:
     type: bundle.unit-test
     platform: iOS
@@ -63,5 +73,5 @@ targets:
       - target: FIRETracker
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.vincentvillalta.firetracker.tests
+        PRODUCT_BUNDLE_IDENTIFIER: com.vv.firetracker.tests
         GENERATE_INFOPLIST_FILE: YES

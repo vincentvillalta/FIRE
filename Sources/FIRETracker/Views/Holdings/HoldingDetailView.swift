@@ -4,6 +4,8 @@ struct HoldingDetailView: View {
     let holding: HoldingLot
     let latestPrice: Decimal?
 
+    @State private var isEditing = false
+
     private var costPerShare: Decimal {
         PortfolioCalculator.costPerShare(holding: holding)
     }
@@ -15,6 +17,7 @@ struct HoldingDetailView: View {
     var body: some View {
         List {
             Section {
+                LabeledContent("ISIN", value: holding.isin ?? "Not set")
                 LabeledContent("Shares", value: holding.shareCount.formatted())
                 LabeledContent("Invested", value: holding.invested.formatted(.portfolioCurrency))
                 LabeledContent("Bought at", value: holding.boughtAt.formatted(.portfolioCurrency))
@@ -32,5 +35,13 @@ struct HoldingDetailView: View {
         }
         .navigationTitle(holding.ticker)
         .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            Button("Edit") {
+                isEditing = true
+            }
+        }
+        .sheet(isPresented: $isEditing) {
+            EditEntryView(holding: holding)
+        }
     }
 }

@@ -1,0 +1,23 @@
+{
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Models/FIREPlan.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/FIREPlan.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/FIREPlan.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/FIREPlan.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/FIREPlan.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/FIREPlan.swiftdeps"
+  },
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Services/FIRECalculator.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/FIRECalculator.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/FIRECalculator.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/FIRECalculator.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/FIRECalculator.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/FIRECalculator.swiftdeps"
+  },
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Views/Entry/EditEntryView.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/EditEntryView.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/EditEntryView.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/EditEntryView.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/EditEntryView.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/EditEntryView.swiftdeps"
+  }
+}

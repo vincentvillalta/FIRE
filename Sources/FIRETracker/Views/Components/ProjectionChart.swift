@@ -10,17 +10,20 @@ struct ProjectionChart: View {
                 x: .value("Year", point.year),
                 y: .value("Value", point.value.doubleValue)
             )
-            .foregroundStyle(.linearGradient(colors: [.teal.opacity(0.42), .teal.opacity(0.08)], startPoint: .top, endPoint: .bottom))
+            .foregroundStyle(.linearGradient(colors: [AppDesign.accent.opacity(0.24), AppDesign.accent.opacity(0.02)], startPoint: .top, endPoint: .bottom))
 
             LineMark(
                 x: .value("Year", point.year),
                 y: .value("Value", point.value.doubleValue)
             )
-            .foregroundStyle(.teal)
-            .lineStyle(.init(lineWidth: 3, lineCap: .round, lineJoin: .round))
+            .foregroundStyle(AppDesign.accent)
+            .lineStyle(.init(lineWidth: 2, lineCap: .round, lineJoin: .round))
         }
         .chartYAxis {
             AxisMarks(position: .leading)
+        }
+        .chartXAxis {
+            AxisMarks(values: .stride(by: 5))
         }
         .frame(height: 220)
         .accessibilityLabel("Future portfolio projection chart")

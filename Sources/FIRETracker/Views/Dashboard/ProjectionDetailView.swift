@@ -8,14 +8,22 @@ struct ProjectionDetailView: View {
     var body: some View {
         List {
             Section {
-                ProjectionChart(points: points)
-                    .listRowInsets(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 0))
+                VStack(alignment: .leading, spacing: 8) {
+                    SectionLabel(title: "Projected value")
+                    Text(points.last?.value ?? .zero, format: .portfolioCurrency)
+                        .font(.system(.title, design: .rounded, weight: .bold))
+                        .monospacedDigit()
+
+                    ProjectionChart(points: points)
+                }
+                .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                .listRowBackground(AppDesign.surface)
             }
 
             Section("Assumptions") {
-                LabeledContent("Starting value", value: currentValue.formatted(.portfolioCurrency))
-                LabeledContent("Annual growth", value: annualGrowth.formatted(.portfolioPercent))
-                LabeledContent("Projection period", value: "\(points.last?.year ?? 0) years")
+                ValueRow(title: "Starting value", value: currentValue.formatted(.portfolioCurrency))
+                ValueRow(title: "Annual growth", value: annualGrowth.formatted(.portfolioPercent))
+                ValueRow(title: "Projection period", value: "\(points.last?.year ?? 0) years")
             }
 
             Section("Milestones") {
@@ -26,16 +34,19 @@ struct ProjectionDetailView: View {
 
             Section("Year by year") {
                 ForEach(points) { point in
-                    LabeledContent("Year \(point.year)", value: point.value.formatted(.portfolioCurrency))
+                    ValueRow(title: "Year \(point.year)", value: point.value.formatted(.portfolioCurrency))
                 }
             }
         }
+        .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
+        .background(AppDesign.background)
         .navigationTitle("Projection")
         .navigationBarTitleDisplayMode(.large)
     }
 
     private func milestoneRow(year: Int) -> some View {
         let value = points.first { $0.year == year }?.value ?? 0
-        return LabeledContent("Year \(year)", value: value.formatted(.portfolioCurrency))
+        return ValueRow(title: "Year \(year)", value: value.formatted(.portfolioCurrency))
     }
 }

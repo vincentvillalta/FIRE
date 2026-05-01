@@ -5,8 +5,8 @@ struct WatchContentView: View {
 
     var body: some View {
         TabView {
-            WatchTodayView(snapshot: store.snapshot.today, updatedAt: store.snapshot.updatedAt)
-            WatchFIREView(snapshot: store.snapshot.fire, updatedAt: store.snapshot.updatedAt)
+            WatchTodayView(snapshot: store.snapshot.today, currencyCode: store.snapshot.currencyCode, updatedAt: store.snapshot.updatedAt)
+            WatchFIREView(snapshot: store.snapshot.fire, currencyCode: store.snapshot.currencyCode, updatedAt: store.snapshot.updatedAt)
         }
         .tabViewStyle(.page)
         .task {
@@ -14,4 +14,3 @@ struct WatchContentView: View {
         }
     }
 }
-

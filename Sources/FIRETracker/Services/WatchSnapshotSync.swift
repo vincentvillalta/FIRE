@@ -1,10 +1,7 @@
 import Foundation
 import WatchConnectivity
 
-@MainActor
 final class WatchSnapshotSync: NSObject, ObservableObject {
-    @Published private(set) var lastSyncedAt: Date?
-
     private var latestSnapshot: WatchPortfolioSnapshot?
     private let session: WCSession?
 
@@ -29,7 +26,6 @@ final class WatchSnapshotSync: NSObject, ObservableObject {
 
         do {
             try session.updateApplicationContext([WatchPortfolioSnapshot.applicationContextKey: data])
-            lastSyncedAt = .now
         } catch {
             // The next app activation or data change will attempt the sync again.
         }
@@ -54,18 +50,15 @@ extension WatchSnapshotSync: WCSessionDelegate {
         didReceiveMessage message: [String: Any],
         replyHandler: @escaping ([String: Any]) -> Void
     ) {
-        Task { @MainActor in
-            guard
-                message["request"] as? String == "snapshot",
-                let latestSnapshot,
-                let data = try? JSONEncoder().encode(latestSnapshot)
-            else {
-                replyHandler([:])
-                return
-            }
-
-            replyHandler([WatchPortfolioSnapshot.applicationContextKey: data])
+        guard
+            message["request"] as? String == "snapshot",
+            let latestSnapshot,
+            let data = try? JSONEncoder().encode(latestSnapshot)
+        else {
+            replyHandler([:])
+            return
         }
+
+        replyHandler([WatchPortfolioSnapshot.applicationContextKey: data])
     }
 }
-

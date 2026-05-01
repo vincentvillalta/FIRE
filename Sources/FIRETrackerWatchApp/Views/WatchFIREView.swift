@@ -2,6 +2,7 @@ import SwiftUI
 
 struct WatchFIREView: View {
     let snapshot: WatchFIRESnapshot
+    let currencyCode: String
     let updatedAt: Date
 
     var body: some View {
@@ -16,11 +17,11 @@ struct WatchFIREView: View {
                     Text(snapshot.progress.watchPercent)
                 }
                 .gaugeStyle(.accessoryCircularCapacity)
-                .tint(snapshot.isOnTrack ? .green : .teal)
+                .tint(snapshot.isOnTrack ? WatchDesign.positive : WatchDesign.accent)
 
-                WatchMetricRow(title: "Number", value: snapshot.fireNumber.watchCurrency)
-                WatchMetricRow(title: "Monthly", value: snapshot.monthlyInvestment.watchCurrency)
-                WatchMetricRow(title: "Target", value: snapshot.targetMonthlyInvestment.watchCurrency)
+                WatchMetricRow(title: "Number", value: snapshot.fireNumber.watchCurrency(code: currencyCode))
+                WatchMetricRow(title: "Monthly", value: snapshot.monthlyInvestment.watchCurrency(code: currencyCode))
+                WatchMetricRow(title: "Target", value: snapshot.targetMonthlyInvestment.watchCurrency(code: currencyCode))
 
                 if let fireAge = snapshot.fireAge {
                     WatchMetricRow(title: "FIRE age", value: "\(fireAge)")
@@ -41,6 +42,6 @@ struct WatchFIREView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 2)
         }
+        .background(WatchDesign.background)
     }
 }
-

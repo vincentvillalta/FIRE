@@ -23,6 +23,6 @@
 	<key>WKApplication</key>
 	<true/>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.vincentvillalta.firetracker</string>
+	<string>com.vv.firetracker</string>
 </dict>
 </plist>

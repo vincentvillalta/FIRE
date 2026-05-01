@@ -1,7 +1,7 @@
 import Foundation
 
 extension WatchPortfolioSnapshot {
-    init(metric: PortfolioMetric, firePlan: FIREPlan, updatedAt: Date = .now) {
+    init(metric: PortfolioMetric, firePlan: FIREPlan, currencyCode: String = PortfolioCurrency.selected.rawValue, updatedAt: Date = .now) {
         today = WatchTodaySnapshot(
             invested: metric.invested.doubleValue,
             currentValue: metric.currentValue.doubleValue,
@@ -23,7 +23,7 @@ extension WatchPortfolioSnapshot {
             investedSinceStart: firePlan.investedSinceStart.doubleValue
         )
 
+        self.currencyCode = currencyCode
         self.updatedAt = updatedAt
     }
 }
-

@@ -18,6 +18,8 @@ struct WatchMetricRow: View {
                 .minimumScaleFactor(0.7)
         }
         .accessibilityElement(children: .combine)
+        .padding(.vertical, 3)
+        .padding(.horizontal, 8)
+        .background(WatchDesign.surface, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 }
-

@@ -7,6 +7,12 @@ extension Decimal {
             .replacingOccurrences(of: "$", with: "")
             .replacingOccurrences(of: "€", with: "")
             .replacingOccurrences(of: "£", with: "")
+            .replacingOccurrences(of: "¥", with: "")
+            .replacingOccurrences(of: "CHF", with: "")
+            .replacingOccurrences(of: "CAD", with: "")
+            .replacingOccurrences(of: "AUD", with: "")
+            .replacingOccurrences(of: "USD", with: "")
+            .replacingOccurrences(of: "EUR", with: "")
             .trimmingCharacters(in: .whitespacesAndNewlines)
 
         if cleaned.contains(","), cleaned.contains(".") {
@@ -32,7 +38,7 @@ extension Decimal {
 
 extension FormatStyle where Self == Decimal.FormatStyle.Currency {
     static var portfolioCurrency: Decimal.FormatStyle.Currency {
-        .currency(code: "EUR")
+        .currency(code: PortfolioCurrency.selected.rawValue)
             .precision(.fractionLength(2))
     }
 }

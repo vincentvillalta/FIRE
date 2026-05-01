@@ -15,9 +15,9 @@ actor StooqQuoteService: QuoteService {
         }
     }
 
-    func fetchQuotes(for tickers: [String]) async throws -> [Quote] {
-        let requestedTickers = tickers
-            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() }
+    func fetchQuotes(for requests: [QuoteRequest]) async throws -> [Quote] {
+        let requestedTickers = requests
+            .map(\.ticker)
             .filter { !$0.isEmpty }
         let requestedSymbols = requestedTickers.flatMap { ticker in
             stooqSymbols(for: ticker)

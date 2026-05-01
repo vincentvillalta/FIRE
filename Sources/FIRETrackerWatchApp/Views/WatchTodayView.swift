@@ -2,6 +2,7 @@ import SwiftUI
 
 struct WatchTodayView: View {
     let snapshot: WatchTodaySnapshot
+    let currencyCode: String
     let updatedAt: Date
 
     var body: some View {
@@ -11,9 +12,9 @@ struct WatchTodayView: View {
                     .font(.headline)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(snapshot.gain.watchCurrency)
-                        .font(.system(.title2, design: .rounded, weight: .bold))
-                        .foregroundStyle(snapshot.gain >= 0 ? .green : .orange)
+                Text(snapshot.gain.watchCurrency(code: currencyCode))
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+                    .foregroundStyle(snapshot.gain >= 0 ? WatchDesign.positive : WatchDesign.negative)
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
 
@@ -22,8 +23,8 @@ struct WatchTodayView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                WatchMetricRow(title: "Value", value: snapshot.currentValue.watchCurrency)
-                WatchMetricRow(title: "Invested", value: snapshot.invested.watchCurrency)
+                WatchMetricRow(title: "Value", value: snapshot.currentValue.watchCurrency(code: currencyCode))
+                WatchMetricRow(title: "Invested", value: snapshot.invested.watchCurrency(code: currencyCode))
 
                 if let annualizedReturn = snapshot.annualizedReturn {
                     WatchMetricRow(title: "Annualized", value: annualizedReturn.watchPercent)
@@ -40,6 +41,6 @@ struct WatchTodayView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 2)
         }
+        .background(WatchDesign.background)
     }
 }
-

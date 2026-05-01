@@ -19,8 +19,8 @@ struct FIREPlanView: View {
                 }
                 .padding()
             }
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle("FIRE Plan")
+            .background(AppDesign.background)
+            .navigationTitle("FIRE Calculator")
             .onAppear(perform: loadProfile)
             .onChange(of: profile.currentAge) { saveProfile() }
             .onChange(of: profile.annualIncome) { saveProfile() }
@@ -43,32 +43,37 @@ struct FIREPlanView: View {
 
     private var summary: some View {
         VStack(alignment: .leading, spacing: 14) {
+            SectionLabel(title: "Estimated FIRE date")
+
             Text(plan.fireDate.map { "FIRE in \($0, format: .dateTime.year().month())" } ?? "Set a monthly investment")
-                .font(.system(.largeTitle, design: .rounded, weight: .bold))
+                .font(.system(.title, design: .rounded, weight: .bold))
                 .lineLimit(2)
                 .minimumScaleFactor(0.78)
 
-            ProgressView(value: plan.progress.doubleValue)
-                .tint(plan.isOnTrack ? .green : .teal)
+            ProgressLine(value: plan.progress.doubleValue, tint: plan.isOnTrack ? AppDesign.positive : AppDesign.accent)
                 .accessibilityLabel("FIRE progress")
 
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("FIRE number")
-                        .font(.caption.weight(.semibold))
+                        .font(.caption2.weight(.semibold))
                         .foregroundStyle(.secondary)
+                        .textCase(.uppercase)
                     Text(plan.fireNumber, format: .portfolioCurrency)
                         .font(.title2.bold())
+                        .monospacedDigit()
                 }
 
                 Spacer()
 
                 VStack(alignment: .trailing, spacing: 4) {
                     Text("FIRE age")
-                        .font(.caption.weight(.semibold))
+                        .font(.caption2.weight(.semibold))
                         .foregroundStyle(.secondary)
+                        .textCase(.uppercase)
                     Text(plan.fireAge.map(String.init) ?? "-")
                         .font(.title2.bold())
+                        .monospacedDigit()
                 }
             }
 
@@ -76,8 +81,13 @@ struct FIREPlanView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
-        .padding(22)
-        .background(.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .padding(18)
+        .background(AppDesign.surface, in: RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous)
+                .stroke(AppDesign.border, lineWidth: 0.5)
+        }
+        .shadow(color: .black.opacity(0.03), radius: 2, y: 1)
     }
 
     private var habitCard: some View {
@@ -93,18 +103,22 @@ struct FIREPlanView: View {
                 tint: plan.isOnTrack ? .green : .orange
             )
 
-            LabeledContent("Monthly investment", value: plan.monthlyInvestment.formatted(.portfolioCurrency))
-            LabeledContent("Invested since start", value: plan.investedSinceStart.formatted(.portfolioCurrency))
-            LabeledContent("Tracked months", value: "\(plan.monthsSinceStart)")
+            ValueRow(title: "Monthly investment", value: plan.monthlyInvestment.formatted(.portfolioCurrency))
+            ValueRow(title: "Invested since start", value: plan.investedSinceStart.formatted(.portfolioCurrency))
+            ValueRow(title: "Tracked months", value: "\(plan.monthsSinceStart)")
         }
         .padding(16)
-        .background(.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .background(AppDesign.surface, in: RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous)
+                .stroke(AppDesign.border, lineWidth: 0.5)
+        }
+        .shadow(color: .black.opacity(0.03), radius: 2, y: 1)
     }
 
     private var assumptions: some View {
         VStack(alignment: .leading, spacing: 18) {
-            Text("Plan inputs")
-                .font(.headline)
+            SectionLabel(title: "Plan inputs")
 
             stepperRow("Age", value: $profile.currentAge, range: 16...90)
 
@@ -149,7 +163,12 @@ struct FIREPlanView: View {
             .buttonStyle(.bordered)
         }
         .padding(16)
-        .background(.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .background(AppDesign.surface, in: RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous)
+                .stroke(AppDesign.border, lineWidth: 0.5)
+        }
+        .shadow(color: .black.opacity(0.03), radius: 2, y: 1)
     }
 
     private func stepperRow(_ title: String, value: Binding<Int>, range: ClosedRange<Int>) -> some View {
@@ -167,14 +186,18 @@ struct FIREPlanView: View {
     ) -> some View where F.FormatInput == Decimal, F.FormatOutput == String {
         VStack(alignment: .leading, spacing: 8) {
             LabeledContent(title, value: value.wrappedValue.formatted(format))
+                .monospacedDigit()
             Slider(value: value.doubleValue, in: range, step: step)
+                .tint(AppDesign.accent)
         }
     }
 
     private func percentSlider(_ title: String, value: Binding<Decimal>, range: ClosedRange<Double>) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             LabeledContent(title, value: value.wrappedValue.formatted(.portfolioPercent))
+                .monospacedDigit()
             Slider(value: value.doubleValue, in: range, step: 0.005)
+                .tint(AppDesign.accent)
         }
     }
 
