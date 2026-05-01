@@ -48,8 +48,9 @@
 		BC2DB71706C801556494DC20 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = F475919BCC103807C673B480 /* Quote.swift */; };
 		BC66F630CC3EB795BCAD007C /* HoldingPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C3D6E313E5CA3ED6732ACC /* HoldingPerformanceTests.swift */; };
 		BEF89D303057A1CD2605B1E1 /* ProjectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0EADDA254A7C5A2DD06C7C /* ProjectionPoint.swift */; };
+		C4A93F992FA4A80E00029846 /* fire.icon in Resources */ = {isa = PBXBuildFile; fileRef = C4A93F982FA4A80E00029846 /* fire.icon */; };
+		C4A93F9A2FA4A80E00029846 /* fire.icon in Resources */ = {isa = PBXBuildFile; fileRef = C4A93F982FA4A80E00029846 /* fire.icon */; };
 		C4CC6F6BED017DDCF6E66767 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E05471A82DE32FE25FF2DB9 /* DashboardView.swift */; };
-		D385B8774547D822BD540842 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = F178247E36E726D280074EEA /* AppIcon.icon */; };
 		D593F855DAB66F1FCFBA915F /* AppDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399C651D86AEEE06D0014EC /* AppDesign.swift */; };
 		E2FBE2F204DDE43DFFDD7715 /* WalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB06D166B904363706C72C3A /* WalkthroughView.swift */; };
 		E569B601AD06C37A62CCF3FD /* WatchFIRETrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B042C9900B00F95174D3806 /* WatchFIRETrackerApp.swift */; };
@@ -59,7 +60,6 @@
 		EAFB001A219972581A547D83 /* FIREProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BDF790A74D50E29738D63D /* FIREProfile.swift */; };
 		EBB0D741BA6CD71A887593AE /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC973FC19E4382BA1D2BD2 /* AddEntryView.swift */; };
 		F4DA41BFC8E1002F4A7AA1AF /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13AB0683B0641FF9EA207C9 /* WatchContentView.swift */; };
-		F8F1B305C89E627A72F52E47 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = F78744898F96BC3A8232F57A /* AppIcon.icon */; };
 		FA3D6C9CFA2C16C04F4BDC85 /* DecimalFormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B508A10DDEA00F028A65C10 /* DecimalFormattingTests.swift */; };
 		FED0FB0643B27002C4991C55 /* WatchMetricRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8D4FC24CC6A78E16C1F26 /* WatchMetricRow.swift */; };
 /* End PBXBuildFile section */
@@ -139,6 +139,7 @@
 		B0E8D4FC24CC6A78E16C1F26 /* WatchMetricRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchMetricRow.swift; sourceTree = "<group>"; };
 		BDE12B63B6D121793B14F2F7 /* HoldingLot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingLot.swift; sourceTree = "<group>"; };
 		C13AB0683B0641FF9EA207C9 /* WatchContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchContentView.swift; sourceTree = "<group>"; };
+		C4A93F982FA4A80E00029846 /* fire.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = fire.icon; sourceTree = "<group>"; };
 		C68541273C0AD25A1BAA5F57 /* StooqQuoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StooqQuoteService.swift; sourceTree = "<group>"; };
 		CF6747ECB57271043495BCC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CF8B572592E8D09144025E96 /* WatchSnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSnapshotStore.swift; sourceTree = "<group>"; };
@@ -149,9 +150,7 @@
 		E02398852AD37B930FEC9633 /* FIRETrackerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = FIRETrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E179EAA6ED4C7A756D405FEF /* QuoteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteRequest.swift; sourceTree = "<group>"; };
 		EB06D166B904363706C72C3A /* WalkthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughView.swift; sourceTree = "<group>"; };
-		F178247E36E726D280074EEA /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.icon; path = Sources/FIRETracker/Resources/AppIcon.icon; sourceTree = SOURCE_ROOT; };
 		F475919BCC103807C673B480 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
-		F78744898F96BC3A8232F57A /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.icon; path = Sources/FIRETrackerWatchApp/Resources/AppIcon.icon; sourceTree = SOURCE_ROOT; };
 		F8CD23D8A5D8CAD79D003F88 /* QuoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteService.swift; sourceTree = "<group>"; };
 		FE45FCA6A41D818BE78F9285 /* PortfolioCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioCalculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,13 +159,12 @@
 		09AC50BEAAD7381581016115 = {
 			isa = PBXGroup;
 			children = (
-				F178247E36E726D280074EEA /* AppIcon.icon */,
-				F78744898F96BC3A8232F57A /* AppIcon.icon */,
 				CE1125C111D383D11BA1B01A /* FIRETracker */,
 				10121C2B97901AF3064ACB47 /* FIRETrackerTests */,
 				AD08282835F029567BB24C73 /* FIRETrackerWatchApp */,
 				4BB81274E585D01A2013803F /* Shared */,
 				E0A20CCE6DDD867FBB50B177 /* Products */,
+				C4A93F982FA4A80E00029846 /* fire.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -485,7 +483,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8F1B305C89E627A72F52E47 /* AppIcon.icon in Resources */,
+				C4A93F992FA4A80E00029846 /* fire.icon in Resources */,
 				A9B47FDCD0B5268C3CFB6ED4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,7 +492,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D385B8774547D822BD540842 /* AppIcon.icon in Resources */,
+				C4A93F9A2FA4A80E00029846 /* fire.icon in Resources */,
 				4BB46CDDF64D7A6BC1D1AE9E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
