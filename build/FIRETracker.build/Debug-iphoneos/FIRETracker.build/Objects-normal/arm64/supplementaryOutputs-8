@@ -1,0 +1,23 @@
+{
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Models/PortfolioMetric.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioMetric.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioMetric.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioMetric.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioMetric.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioMetric.swiftdeps"
+  },
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Services/PortfolioCalculator.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioCalculator.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioCalculator.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioCalculator.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioCalculator.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioCalculator.swiftdeps"
+  },
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Services/PortfolioCurrency.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioCurrency.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioCurrency.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioCurrency.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioCurrency.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/PortfolioCurrency.swiftdeps"
+  }
+}

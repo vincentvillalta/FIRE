@@ -9,6 +9,7 @@ struct ContentView: View {
     @State private var selectedTab = MainTab.today
 
     @Query(sort: \HoldingLot.purchaseDate) private var holdings: [HoldingLot]
+    @Query private var liquidations: [LiquidationLot]
     @Query private var prices: [PriceSnapshot]
     @Query private var profiles: [FIREProfile]
 
@@ -58,14 +59,14 @@ struct ContentView: View {
     }
 
     private var watchSnapshot: WatchPortfolioSnapshot {
-        let metric = PortfolioCalculator.metrics(holdings: holdings, prices: prices)
+        let metric = PortfolioCalculator.metrics(holdings: holdings, prices: prices, liquidations: liquidations)
         let profile = profiles.first ?? FIREProfile()
         let plan = FIRECalculator.plan(profile: profile, portfolioValue: metric.currentValue)
         return WatchPortfolioSnapshot(metric: metric, firePlan: plan, currencyCode: selectedCurrencyCode, updatedAt: watchSnapshotUpdatedAt)
     }
 
     private var watchSnapshotUpdatedAt: Date {
-        let dates = holdings.map(\.importedAt) + prices.map(\.fetchedAt) + profiles.map(\.updatedAt)
+        let dates = holdings.map(\.importedAt) + liquidations.map(\.recordedAt) + prices.map(\.fetchedAt) + profiles.map(\.updatedAt)
         return dates.max() ?? .distantPast
     }
 }

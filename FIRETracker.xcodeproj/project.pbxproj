@@ -47,11 +47,13 @@
 		B370443093DCBA73B51FFB6D /* WatchUpdatedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E583A2B2BEE313AADD37D87 /* WatchUpdatedText.swift */; };
 		BC2DB71706C801556494DC20 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = F475919BCC103807C673B480 /* Quote.swift */; };
 		BC66F630CC3EB795BCAD007C /* HoldingPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C3D6E313E5CA3ED6732ACC /* HoldingPerformanceTests.swift */; };
+		BD03349BBD9506F29191ADAD /* LiquidationCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE94490B1B38BF9916EBDD2C /* LiquidationCalculator.swift */; };
 		BEF89D303057A1CD2605B1E1 /* ProjectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0EADDA254A7C5A2DD06C7C /* ProjectionPoint.swift */; };
-		C4A93F992FA4A80E00029846 /* fire.icon in Resources */ = {isa = PBXBuildFile; fileRef = C4A93F982FA4A80E00029846 /* fire.icon */; };
-		C4A93F9A2FA4A80E00029846 /* fire.icon in Resources */ = {isa = PBXBuildFile; fileRef = C4A93F982FA4A80E00029846 /* fire.icon */; };
 		C4CC6F6BED017DDCF6E66767 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E05471A82DE32FE25FF2DB9 /* DashboardView.swift */; };
+		D385B8774547D822BD540842 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = F178247E36E726D280074EEA /* AppIcon.icon */; };
 		D593F855DAB66F1FCFBA915F /* AppDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399C651D86AEEE06D0014EC /* AppDesign.swift */; };
+		D8FAE627C13E8590B1ED5A3E /* LiquidationLot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9516CF3BAC73797FAD42D757 /* LiquidationLot.swift */; };
+		E0F116DD6F75D7BF61404BC5 /* LiquidateEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E3006B00B8AE286F7B2E8A /* LiquidateEntryView.swift */; };
 		E2FBE2F204DDE43DFFDD7715 /* WalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB06D166B904363706C72C3A /* WalkthroughView.swift */; };
 		E569B601AD06C37A62CCF3FD /* WatchFIRETrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B042C9900B00F95174D3806 /* WatchFIRETrackerApp.swift */; };
 		E64CE3036581EA20A8B3BDF6 /* WatchFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA6479A815911A8B5EBBD65 /* WatchFormatters.swift */; };
@@ -60,6 +62,7 @@
 		EAFB001A219972581A547D83 /* FIREProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BDF790A74D50E29738D63D /* FIREProfile.swift */; };
 		EBB0D741BA6CD71A887593AE /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC973FC19E4382BA1D2BD2 /* AddEntryView.swift */; };
 		F4DA41BFC8E1002F4A7AA1AF /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13AB0683B0641FF9EA207C9 /* WatchContentView.swift */; };
+		F8F1B305C89E627A72F52E47 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = F78744898F96BC3A8232F57A /* AppIcon.icon */; };
 		FA3D6C9CFA2C16C04F4BDC85 /* DecimalFormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B508A10DDEA00F028A65C10 /* DecimalFormattingTests.swift */; };
 		FED0FB0643B27002C4991C55 /* WatchMetricRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8D4FC24CC6A78E16C1F26 /* WatchMetricRow.swift */; };
 /* End PBXBuildFile section */
@@ -112,6 +115,7 @@
 		27D1DF750E2F1956511A8A2F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2BA6479A815911A8B5EBBD65 /* WatchFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchFormatters.swift; sourceTree = "<group>"; };
 		40672EE882735E9CEE8FA68C /* FIREPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIREPlanView.swift; sourceTree = "<group>"; };
+		48E3006B00B8AE286F7B2E8A /* LiquidateEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidateEntryView.swift; sourceTree = "<group>"; };
 		4F0EADDA254A7C5A2DD06C7C /* ProjectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectionPoint.swift; sourceTree = "<group>"; };
 		55559CA5D609E67F738B4A85 /* PortfolioMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioMetric.swift; sourceTree = "<group>"; };
 		58C0AF3C125F7A6FE12F3A83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,16 +134,17 @@
 		86AB0430646BE29B6C6CF463 /* PriceSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceSnapshot.swift; sourceTree = "<group>"; };
 		8D8C7DBA4366EA41FD64C03C /* FIRETracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIRETracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93227009ACE368EA07E54858 /* WatchFIREView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchFIREView.swift; sourceTree = "<group>"; };
+		9516CF3BAC73797FAD42D757 /* LiquidationLot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidationLot.swift; sourceTree = "<group>"; };
 		9B508A10DDEA00F028A65C10 /* DecimalFormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalFormattingTests.swift; sourceTree = "<group>"; };
 		9D402F4EF5A9F45D0D724089 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9DCFB4BEB410ACF9CB31DDC7 /* HoldingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingRow.swift; sourceTree = "<group>"; };
 		A5836BE9FA6214A3900FADD7 /* MetricCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCard.swift; sourceTree = "<group>"; };
 		A99111764CF0AC9D504CDB97 /* FIREPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIREPlan.swift; sourceTree = "<group>"; };
+		AE94490B1B38BF9916EBDD2C /* LiquidationCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidationCalculator.swift; sourceTree = "<group>"; };
 		B0377FD3D0A4D72D719995B3 /* EditEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEntryView.swift; sourceTree = "<group>"; };
 		B0E8D4FC24CC6A78E16C1F26 /* WatchMetricRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchMetricRow.swift; sourceTree = "<group>"; };
 		BDE12B63B6D121793B14F2F7 /* HoldingLot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingLot.swift; sourceTree = "<group>"; };
 		C13AB0683B0641FF9EA207C9 /* WatchContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchContentView.swift; sourceTree = "<group>"; };
-		C4A93F982FA4A80E00029846 /* fire.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = fire.icon; sourceTree = "<group>"; };
 		C68541273C0AD25A1BAA5F57 /* StooqQuoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StooqQuoteService.swift; sourceTree = "<group>"; };
 		CF6747ECB57271043495BCC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CF8B572592E8D09144025E96 /* WatchSnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSnapshotStore.swift; sourceTree = "<group>"; };
@@ -150,7 +155,9 @@
 		E02398852AD37B930FEC9633 /* FIRETrackerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = FIRETrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E179EAA6ED4C7A756D405FEF /* QuoteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteRequest.swift; sourceTree = "<group>"; };
 		EB06D166B904363706C72C3A /* WalkthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughView.swift; sourceTree = "<group>"; };
+		F178247E36E726D280074EEA /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.icon; path = Sources/FIRETracker/Resources/AppIcon.icon; sourceTree = SOURCE_ROOT; };
 		F475919BCC103807C673B480 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		F78744898F96BC3A8232F57A /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.icon; path = Sources/FIRETrackerWatchApp/Resources/AppIcon.icon; sourceTree = SOURCE_ROOT; };
 		F8CD23D8A5D8CAD79D003F88 /* QuoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteService.swift; sourceTree = "<group>"; };
 		FE45FCA6A41D818BE78F9285 /* PortfolioCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioCalculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,12 +166,13 @@
 		09AC50BEAAD7381581016115 = {
 			isa = PBXGroup;
 			children = (
+				F178247E36E726D280074EEA /* AppIcon.icon */,
+				F78744898F96BC3A8232F57A /* AppIcon.icon */,
 				CE1125C111D383D11BA1B01A /* FIRETracker */,
 				10121C2B97901AF3064ACB47 /* FIRETrackerTests */,
 				AD08282835F029567BB24C73 /* FIRETrackerWatchApp */,
 				4BB81274E585D01A2013803F /* Shared */,
 				E0A20CCE6DDD867FBB50B177 /* Products */,
-				C4A93F982FA4A80E00029846 /* fire.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -184,6 +192,7 @@
 			children = (
 				D7CC973FC19E4382BA1D2BD2 /* AddEntryView.swift */,
 				B0377FD3D0A4D72D719995B3 /* EditEntryView.swift */,
+				48E3006B00B8AE286F7B2E8A /* LiquidateEntryView.swift */,
 			);
 			path = Entry;
 			sourceTree = "<group>";
@@ -354,6 +363,7 @@
 				78BDF790A74D50E29738D63D /* FIREProfile.swift */,
 				BDE12B63B6D121793B14F2F7 /* HoldingLot.swift */,
 				21AA3F339AD76C7FFCC3F49D /* HoldingPerformance.swift */,
+				9516CF3BAC73797FAD42D757 /* LiquidationLot.swift */,
 				55559CA5D609E67F738B4A85 /* PortfolioMetric.swift */,
 				86AB0430646BE29B6C6CF463 /* PriceSnapshot.swift */,
 				4F0EADDA254A7C5A2DD06C7C /* ProjectionPoint.swift */,
@@ -367,6 +377,7 @@
 				1FC8A7AAA4DA069234297D7A /* BindingHelpers.swift */,
 				0E7A432F3729969284142556 /* DecimalFormatting.swift */,
 				20A6CAA0A6E4A6164E6FEA57 /* FIRECalculator.swift */,
+				AE94490B1B38BF9916EBDD2C /* LiquidationCalculator.swift */,
 				FE45FCA6A41D818BE78F9285 /* PortfolioCalculator.swift */,
 				7DCEB35F96881012FB234797 /* PortfolioCurrency.swift */,
 				F475919BCC103807C673B480 /* Quote.swift */,
@@ -483,7 +494,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4A93F992FA4A80E00029846 /* fire.icon in Resources */,
+				F8F1B305C89E627A72F52E47 /* AppIcon.icon in Resources */,
 				A9B47FDCD0B5268C3CFB6ED4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,7 +503,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4A93F9A2FA4A80E00029846 /* fire.icon in Resources */,
+				D385B8774547D822BD540842 /* AppIcon.icon in Resources */,
 				4BB46CDDF64D7A6BC1D1AE9E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,6 +560,9 @@
 				28B4D9CF7D38D0B9E392619F /* HoldingPerformance.swift in Sources */,
 				3EF10C360C06C9A0F3321CCD /* HoldingRow.swift in Sources */,
 				17206D2B5DAFB067600A2909 /* HoldingsView.swift in Sources */,
+				E0F116DD6F75D7BF61404BC5 /* LiquidateEntryView.swift in Sources */,
+				BD03349BBD9506F29191ADAD /* LiquidationCalculator.swift in Sources */,
+				D8FAE627C13E8590B1ED5A3E /* LiquidationLot.swift in Sources */,
 				E9959B7CC7D5C709E196DF54 /* MetricCard.swift in Sources */,
 				4CF81994F96E3400CCA77085 /* PortfolioCalculator.swift in Sources */,
 				30D9A10651CF5E6E66614E56 /* PortfolioCurrency.swift in Sources */,
@@ -733,15 +747,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = BCF6K6Y7WL;
 				INFOPLIST_FILE = Sources/FIRETracker/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = FIRETracker;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsArbitraryLoads = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vv.firetracker;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -755,6 +769,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				DEVELOPMENT_TEAM = BCF6K6Y7WL;
 				INFOPLIST_FILE = Sources/FIRETrackerWatchApp/Resources/Info.plist;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vv.firetracker.watchkitapp;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -786,6 +801,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				DEVELOPMENT_TEAM = BCF6K6Y7WL;
 				INFOPLIST_FILE = Sources/FIRETrackerWatchApp/Resources/Info.plist;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vv.firetracker.watchkitapp;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -799,15 +815,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = BCF6K6Y7WL;
 				INFOPLIST_FILE = Sources/FIRETracker/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = FIRETracker;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsArbitraryLoads = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vv.firetracker;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

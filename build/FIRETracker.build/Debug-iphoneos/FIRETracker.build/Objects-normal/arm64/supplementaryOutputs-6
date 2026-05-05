@@ -1,0 +1,23 @@
+{
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Views/Entry/LiquidateEntryView.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidateEntryView.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidateEntryView.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidateEntryView.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidateEntryView.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidateEntryView.swiftdeps"
+  },
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Views/Holdings/HoldingRow.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingRow.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingRow.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingRow.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingRow.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingRow.swiftdeps"
+  },
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Views/Holdings/HoldingsView.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingsView.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingsView.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingsView.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingsView.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingsView.swiftdeps"
+  }
+}

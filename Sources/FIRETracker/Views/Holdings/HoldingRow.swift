@@ -3,9 +3,10 @@ import SwiftUI
 struct HoldingRow: View {
     let holding: HoldingLot
     let latestPrice: Decimal?
+    var liquidations: [LiquidationLot] = []
 
     private var performance: HoldingPerformance {
-        HoldingPerformance(holding: holding, latestPrice: latestPrice)
+        HoldingPerformance(holding: holding, latestPrice: latestPrice, liquidations: liquidations)
     }
 
     var body: some View {
@@ -17,7 +18,7 @@ struct HoldingRow: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
-                Text("\(holding.shareCount.formatted()) sh · avg \(PortfolioCalculator.costPerShare(holding: holding).formatted(.portfolioCurrency))")
+                Text("\(performance.remainingShares.formatted()) open sh · avg \(PortfolioCalculator.costPerShare(holding: holding).formatted(.portfolioCurrency))")
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
                     .lineLimit(1)

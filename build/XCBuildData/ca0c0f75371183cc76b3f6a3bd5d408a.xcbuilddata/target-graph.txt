@@ -1,4 +1,0 @@
-Target dependency graph (2 targets)
-Target 'FIRETracker' in project 'FIRETracker'
-➜ Explicit dependency on target 'FIRETrackerWatchApp' in project 'FIRETracker'
-Target 'FIRETrackerWatchApp' in project 'FIRETracker' (no dependencies)

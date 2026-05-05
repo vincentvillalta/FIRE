@@ -4,6 +4,7 @@ import SwiftUI
 struct DashboardView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \HoldingLot.purchaseDate) private var holdings: [HoldingLot]
+    @Query private var liquidations: [LiquidationLot]
     @Query private var prices: [PriceSnapshot]
     @Query private var profiles: [FIREProfile]
 
@@ -50,7 +51,7 @@ struct DashboardView: View {
     }
 
     private var metric: PortfolioMetric {
-        PortfolioCalculator.metrics(holdings: holdings, prices: prices)
+        PortfolioCalculator.metrics(holdings: holdings, prices: prices, liquidations: liquidations)
     }
 
     private var fireProfile: FIREProfile {
@@ -112,7 +113,7 @@ struct DashboardView: View {
             MetricCard(
                 title: "Current value",
                 value: metric.currentValue.formatted(.portfolioCurrency),
-                subtitle: metric.hasMissingPrices ? "Some prices need refresh" : "\(metric.gain.formatted(.portfolioCurrency)) all time",
+                subtitle: metric.hasMissingPrices ? "Some prices need refresh" : "\(metric.gain.formatted(.portfolioCurrency)) unrealized",
                 systemImage: "banknote",
                 tint: AppDesign.accent
             )
@@ -123,6 +124,14 @@ struct DashboardView: View {
                 subtitle: "Cash you put to work",
                 systemImage: "tray.and.arrow.down",
                 tint: .blue
+            )
+
+            MetricCard(
+                title: "Realized",
+                value: metric.realizedGain.formatted(.portfolioCurrency),
+                subtitle: "Closed position gain/loss",
+                systemImage: "arrow.left.arrow.right.circle",
+                tint: metric.realizedGain >= 0 ? AppDesign.positive : AppDesign.negative
             )
 
             MetricCard(
@@ -181,7 +190,11 @@ struct DashboardView: View {
                 ContentUnavailableView("Add your first entry", systemImage: "doc.badge.plus", description: Text("Your holdings stay in SwiftData on this device."))
             } else {
                 ForEach(holdings.prefix(5)) { holding in
-                    HoldingRow(holding: holding, latestPrice: prices.first { $0.ticker == holding.ticker }?.price)
+                    HoldingRow(
+                        holding: holding,
+                        latestPrice: prices.first { $0.ticker == holding.ticker }?.price,
+                        liquidations: LiquidationCalculator.liquidations(for: holding, in: liquidations)
+                    )
                 }
             }
         }

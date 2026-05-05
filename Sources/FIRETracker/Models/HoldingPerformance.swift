@@ -3,6 +3,7 @@ import Foundation
 struct HoldingPerformance {
     let holding: HoldingLot
     let latestPrice: Decimal?
+    var liquidations: [LiquidationLot] = []
 
     var displayPrice: Decimal {
         latestPrice ?? holding.boughtAt
@@ -12,12 +13,24 @@ struct HoldingPerformance {
         latestPrice != nil
     }
 
+    var remainingShares: Decimal {
+        LiquidationCalculator.remainingShares(for: holding, liquidations: liquidations)
+    }
+
+    var openCostBasis: Decimal {
+        LiquidationCalculator.openCostBasis(for: holding, liquidations: liquidations)
+    }
+
+    var realizedGain: Decimal {
+        LiquidationCalculator.realizedGain(from: liquidations)
+    }
+
     var currentValue: Decimal {
         guard let latestPrice else {
-            return holding.invested
+            return openCostBasis
         }
 
-        return holding.shareCount * latestPrice
+        return remainingShares * latestPrice
     }
 
     var unrealizedGain: Decimal {
@@ -25,15 +38,15 @@ struct HoldingPerformance {
             return 0
         }
 
-        return currentValue - holding.invested
+        return currentValue - openCostBasis
     }
 
     var unrealizedGainPercent: Decimal {
-        guard holding.invested > 0 else {
+        guard openCostBasis > 0 else {
             return 0
         }
 
-        return unrealizedGain / holding.invested
+        return unrealizedGain / openCostBasis
     }
 
     var priceGrowth: Decimal {

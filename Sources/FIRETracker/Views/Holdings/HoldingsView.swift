@@ -4,6 +4,7 @@ import SwiftUI
 struct HoldingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \HoldingLot.ticker) private var holdings: [HoldingLot]
+    @Query private var liquidations: [LiquidationLot]
     @Query private var prices: [PriceSnapshot]
 
     @State private var expandedTickers: Set<String> = []
@@ -23,13 +24,14 @@ struct HoldingsView: View {
                             position: position,
                             isExpanded: expandedTickers.contains(position.ticker),
                             onToggle: { toggle(position.ticker) },
-                            onDelete: deleteHolding
+                            onDelete: deleteHolding,
+                            onDeleteLiquidation: deleteLiquidation
                         )
                     }
                 } header: {
                     Text("\(positions.count) positions · \(holdings.count) transactions")
                 } footer: {
-                    Text("Tap a ticker to see buy entries. Swipe an entry to delete it.")
+                    Text("Tap a ticker to see buy and sale entries. Swipe an entry to delete it.")
                 }
             }
             .listStyle(.insetGrouped)
@@ -48,16 +50,17 @@ struct HoldingsView: View {
     }
 
     private var metric: PortfolioMetric {
-        PortfolioCalculator.metrics(holdings: holdings, prices: prices)
+        PortfolioCalculator.metrics(holdings: holdings, prices: prices, liquidations: liquidations)
     }
 
     private var positions: [HoldingPosition] {
         let priceMap = Dictionary(uniqueKeysWithValues: prices.map { ($0.ticker, $0.price) })
         let grouped = Dictionary(grouping: holdings, by: \.ticker)
+        let liquidationsByTicker = Dictionary(grouping: liquidations, by: \.ticker)
 
         return grouped
             .map { ticker, lots in
-                HoldingPosition(ticker: ticker, lots: lots, latestPrice: priceMap[ticker])
+                HoldingPosition(ticker: ticker, lots: lots, liquidations: liquidationsByTicker[ticker] ?? [], latestPrice: priceMap[ticker])
             }
             .sorted { $0.currentValue > $1.currentValue }
     }
@@ -93,7 +96,15 @@ struct HoldingsView: View {
     }
 
     private func deleteHolding(_ holding: HoldingLot) {
+        for liquidation in LiquidationCalculator.liquidations(for: holding, in: liquidations) {
+            modelContext.delete(liquidation)
+        }
         modelContext.delete(holding)
+        try? modelContext.save()
+    }
+
+    private func deleteLiquidation(_ liquidation: LiquidationLot) {
+        modelContext.delete(liquidation)
         try? modelContext.save()
     }
 }
@@ -102,23 +113,37 @@ private struct HoldingPosition: Identifiable {
     let ticker: String
     let name: String
     let lots: [HoldingLot]
+    let liquidations: [LiquidationLot]
     let latestPrice: Decimal?
 
     var id: String { ticker }
 
-    init(ticker: String, lots: [HoldingLot], latestPrice: Decimal?) {
+    init(ticker: String, lots: [HoldingLot], liquidations: [LiquidationLot], latestPrice: Decimal?) {
         self.ticker = ticker
         self.lots = lots.sorted { $0.purchaseDate < $1.purchaseDate }
+        self.liquidations = liquidations.sorted { $0.saleDate < $1.saleDate }
         self.latestPrice = latestPrice
         name = lots.first?.name ?? ticker
     }
 
     var invested: Decimal {
-        lots.reduce(.zero) { $0 + $1.invested }
+        lots.reduce(.zero) { partial, lot in
+            partial + LiquidationCalculator.openCostBasis(for: lot, liquidations: liquidations(for: lot))
+        }
     }
 
     var shares: Decimal {
-        lots.reduce(.zero) { $0 + $1.shareCount }
+        lots.reduce(.zero) { partial, lot in
+            partial + LiquidationCalculator.remainingShares(for: lot, liquidations: liquidations(for: lot))
+        }
+    }
+
+    var soldShares: Decimal {
+        liquidations.reduce(.zero) { $0 + $1.soldShares }
+    }
+
+    var realizedGain: Decimal {
+        LiquidationCalculator.realizedGain(from: liquidations)
     }
 
     var averageCost: Decimal {
@@ -146,6 +171,10 @@ private struct HoldingPosition: Identifiable {
     var isin: String? {
         lots.compactMap(\.isin).first
     }
+
+    func liquidations(for lot: HoldingLot) -> [LiquidationLot] {
+        LiquidationCalculator.liquidations(for: lot, in: liquidations)
+    }
 }
 
 private struct PositionAccordionRow: View {
@@ -153,6 +182,7 @@ private struct PositionAccordionRow: View {
     let isExpanded: Bool
     let onToggle: () -> Void
     let onDelete: (HoldingLot) -> Void
+    let onDeleteLiquidation: (LiquidationLot) -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -170,7 +200,7 @@ private struct PositionAccordionRow: View {
                                 .lineLimit(1)
                         }
 
-                        Text("\(position.shares.formatted()) sh · avg \(position.averageCost.formatted(.portfolioCurrency)) · \(position.lots.count) \(position.lots.count == 1 ? "buy" : "buys")")
+                        Text("\(position.shares.formatted()) open sh · \(position.soldShares.formatted()) sold · avg \(position.averageCost.formatted(.portfolioCurrency))")
                             .font(.caption2)
                             .foregroundStyle(.tertiary)
                             .lineLimit(1)
@@ -218,7 +248,7 @@ private struct PositionAccordionRow: View {
                         NavigationLink {
                             HoldingDetailView(holding: lot, latestPrice: position.latestPrice)
                         } label: {
-                            TransactionRow(holding: lot, latestPrice: position.latestPrice)
+                            TransactionRow(holding: lot, latestPrice: position.latestPrice, liquidations: position.liquidations(for: lot))
                         }
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
@@ -236,6 +266,22 @@ private struct PositionAccordionRow: View {
 
                     ValueRow(title: "Avg cost / share", value: position.averageCost.formatted(.portfolioCurrency), valueColor: .primary)
                         .padding(.top, 8)
+                    ValueRow(title: "Realized gain/loss", value: position.realizedGain.formatted(.portfolioCurrency), valueColor: position.realizedGain >= 0 ? AppDesign.positive : AppDesign.negative)
+
+                    if !position.liquidations.isEmpty {
+                        liquidationHeader
+
+                        ForEach(position.liquidations) { liquidation in
+                            LiquidationRow(liquidation: liquidation)
+                                .swipeActions(edge: .trailing) {
+                                    Button(role: .destructive) {
+                                        onDeleteLiquidation(liquidation)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                }
+                        }
+                    }
                 }
                 .padding(.top, 8)
                 .padding(.bottom, 4)
@@ -258,14 +304,31 @@ private struct PositionAccordionRow: View {
         .padding(.horizontal, 16)
         .padding(.bottom, 4)
     }
+
+    private var liquidationHeader: some View {
+        HStack {
+            Text("Sales")
+            Spacer()
+            Text("Shares @ price")
+            Text("Gain/Loss")
+                .frame(minWidth: 70, alignment: .trailing)
+        }
+        .font(.caption2.weight(.semibold))
+        .foregroundStyle(.secondary)
+        .textCase(.uppercase)
+        .padding(.horizontal, 16)
+        .padding(.top, 10)
+        .padding(.bottom, 4)
+    }
 }
 
 private struct TransactionRow: View {
     let holding: HoldingLot
     let latestPrice: Decimal?
+    let liquidations: [LiquidationLot]
 
     private var performance: HoldingPerformance {
-        HoldingPerformance(holding: holding, latestPrice: latestPrice)
+        HoldingPerformance(holding: holding, latestPrice: latestPrice, liquidations: liquidations)
     }
 
     var body: some View {
@@ -277,7 +340,7 @@ private struct TransactionRow: View {
 
             Spacer(minLength: 8)
 
-            Text("\(holding.shareCount.formatted()) @ \(holding.boughtAt.formatted(.portfolioCurrency))")
+            Text("\(performance.remainingShares.formatted()) open @ \(holding.boughtAt.formatted(.portfolioCurrency))")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
@@ -290,6 +353,45 @@ private struct TransactionRow: View {
                 Text(performance.hasLatestPrice ? performance.unrealizedGainPercent.formatted(.portfolioPercent) : "No price")
                     .font(.caption2.weight(.medium))
                     .foregroundStyle(performance.unrealizedGain >= 0 ? AppDesign.positive : AppDesign.negative)
+            }
+            .frame(minWidth: 72, alignment: .trailing)
+        }
+        .monospacedDigit()
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .accessibilityElement(children: .combine)
+    }
+}
+
+private struct LiquidationRow: View {
+    let liquidation: LiquidationLot
+
+    private var gain: Decimal {
+        liquidation.proceeds - liquidation.costBasis
+    }
+
+    var body: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
+            Text(liquidation.saleDate, format: .dateTime.day().month(.abbreviated).year())
+                .font(.caption)
+                .foregroundStyle(.primary)
+                .frame(minWidth: 78, alignment: .leading)
+
+            Spacer(minLength: 8)
+
+            Text("\(liquidation.soldShares.formatted()) @ \(liquidation.soldAt.formatted(.portfolioCurrency))")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+
+            VStack(alignment: .trailing, spacing: 2) {
+                Text(gain, format: .portfolioCurrency)
+                    .font(.caption.weight(.medium))
+                    .foregroundStyle(gain >= 0 ? AppDesign.positive : AppDesign.negative)
+
+                Text(liquidation.proceeds, format: .portfolioCurrency)
+                    .font(.caption2.weight(.medium))
+                    .foregroundStyle(.secondary)
             }
             .frame(minWidth: 72, alignment: .trailing)
         }

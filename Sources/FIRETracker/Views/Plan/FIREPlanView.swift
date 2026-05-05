@@ -5,6 +5,7 @@ struct FIREPlanView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var profiles: [FIREProfile]
     @Query(sort: \HoldingLot.purchaseDate) private var holdings: [HoldingLot]
+    @Query private var liquidations: [LiquidationLot]
     @Query private var prices: [PriceSnapshot]
 
     @State private var profile = FIREProfile()
@@ -34,7 +35,7 @@ struct FIREPlanView: View {
     }
 
     private var metric: PortfolioMetric {
-        PortfolioCalculator.metrics(holdings: holdings, prices: prices)
+        PortfolioCalculator.metrics(holdings: holdings, prices: prices, liquidations: liquidations)
     }
 
     private var plan: FIREPlan {
@@ -96,16 +97,35 @@ struct FIREPlanView: View {
                 .font(.headline)
 
             MetricCard(
-                title: plan.isOnTrack ? "Keep investing" : "Increase by",
-                value: abs(plan.monthlyGap).formatted(.portfolioCurrency),
-                subtitle: plan.isOnTrack ? "Current monthly habit reaches the target." : "Monthly gap to close based on your current trajectory.",
-                systemImage: plan.isOnTrack ? "checkmark.seal" : "plus.circle",
-                tint: plan.isOnTrack ? .green : .orange
+                title: monthlyHabitRemaining > 0 ? "Invest this month" : "This month done",
+                value: habitCardValue.formatted(.portfolioCurrency),
+                subtitle: habitCardSubtitle,
+                systemImage: monthlyHabitRemaining > 0 ? "plus.circle" : "checkmark.seal",
+                tint: monthlyHabitRemaining > 0 ? .orange : .green
             )
 
-            ValueRow(title: "Monthly investment", value: plan.monthlyInvestment.formatted(.portfolioCurrency))
-            ValueRow(title: "Invested since start", value: plan.investedSinceStart.formatted(.portfolioCurrency))
-            ValueRow(title: "Tracked months", value: "\(plan.monthsSinceStart)")
+            VStack(alignment: .leading, spacing: 6) {
+                ProgressLine(value: monthlyHabitProgress.doubleValue, tint: monthlyHabitRemaining > 0 ? .orange : AppDesign.positive)
+                    .frame(height: 8)
+                    .accessibilityLabel("Monthly habit progress")
+                    .accessibilityValue(monthlyHabitProgress.formatted(.portfolioPercent))
+
+                HStack {
+                    Text(monthlyHabitProgress.formatted(.portfolioPercent))
+                    Spacer()
+                    Text("\(investedThisMonth.formatted(.portfolioCurrency)) / \(plan.monthlyInvestment.formatted(.portfolioCurrency))")
+                }
+                .font(.caption.monospacedDigit())
+                .foregroundStyle(.secondary)
+            }
+
+            ValueRow(title: "Monthly habit target", value: plan.monthlyInvestment.formatted(.portfolioCurrency))
+            ValueRow(title: "Invested this month", value: investedThisMonth.formatted(.portfolioCurrency))
+            ValueRow(title: "Remaining this month", value: monthlyHabitRemaining.formatted(.portfolioCurrency))
+            ValueRow(title: "Required monthly", value: plan.targetMonthlyInvestment.formatted(.portfolioCurrency))
+            ValueRow(title: "Actual invested", value: metric.invested.formatted(.portfolioCurrency))
+            ValueRow(title: "Invested since start", value: investedSinceTrackingStart.formatted(.portfolioCurrency))
+            ValueRow(title: "Tracked months", value: "\(trackedMonths)")
         }
         .padding(16)
         .background(AppDesign.surface, in: RoundedRectangle(cornerRadius: AppDesign.cardRadius, style: .continuous))
@@ -171,6 +191,62 @@ struct FIREPlanView: View {
         .shadow(color: .black.opacity(0.03), radius: 2, y: 1)
     }
 
+    private var habitCardValue: Decimal {
+        monthlyHabitRemaining > 0 ? monthlyHabitRemaining : investedThisMonth
+    }
+
+    private var habitCardSubtitle: String {
+        guard plan.monthlyInvestment > 0 else {
+            return "Set a monthly investment target to track the habit."
+        }
+
+        if monthlyHabitRemaining > 0 {
+            return "You have logged \(investedThisMonth.formatted(.portfolioCurrency)) of your \(plan.monthlyInvestment.formatted(.portfolioCurrency)) monthly habit."
+        }
+
+        return "You have reached this month's habit target."
+    }
+
+    private var investedThisMonth: Decimal {
+        let interval = Calendar.current.dateInterval(of: .month, for: .now)
+        guard let interval else { return 0 }
+
+        return holdings
+            .filter { $0.purchaseDate >= interval.start && $0.purchaseDate < interval.end }
+            .reduce(Decimal.zero) { $0 + $1.invested }
+    }
+
+    private var monthlyHabitRemaining: Decimal {
+        max(plan.monthlyInvestment - investedThisMonth, 0)
+    }
+
+    private var monthlyHabitProgress: Decimal {
+        guard plan.monthlyInvestment > 0 else { return 0 }
+        return min(investedThisMonth / plan.monthlyInvestment, 1)
+    }
+
+    private var investedSinceTrackingStart: Decimal {
+        let startDate = Calendar.current.startOfDay(for: profile.planStartDate)
+        return holdings
+            .filter { $0.purchaseDate >= startDate }
+            .reduce(Decimal.zero) { $0 + $1.invested }
+    }
+
+    private var trackedMonths: Int {
+        guard investedSinceTrackingStart > 0 else { return 0 }
+
+        let calendar = Calendar.current
+        guard
+            let startMonth = calendar.dateInterval(of: .month, for: profile.planStartDate)?.start,
+            let currentMonth = calendar.dateInterval(of: .month, for: .now)?.start
+        else {
+            return 0
+        }
+
+        let elapsedMonths = calendar.dateComponents([.month], from: startMonth, to: currentMonth).month ?? 0
+        return max(elapsedMonths + 1, 1)
+    }
+
     private func stepperRow(_ title: String, value: Binding<Int>, range: ClosedRange<Int>) -> some View {
         Stepper(value: value, in: range) {
             LabeledContent(title, value: "\(value.wrappedValue)")
@@ -202,9 +278,16 @@ struct FIREPlanView: View {
     }
 
     private func loadProfile() {
+        let defaultStartDate = holdings.map(\.purchaseDate).min() ?? .now
+
         if let stored = profiles.first {
             profile = stored
+            if shouldBackfillStartDate(profile.planStartDate, defaultStartDate: defaultStartDate) {
+                profile.planStartDate = defaultStartDate
+                saveProfile()
+            }
         } else {
+            profile.planStartDate = defaultStartDate
             modelContext.insert(profile)
             try? modelContext.save()
         }
@@ -213,5 +296,12 @@ struct FIREPlanView: View {
     private func saveProfile() {
         profile.updatedAt = .now
         try? modelContext.save()
+    }
+
+    private func shouldBackfillStartDate(_ currentStartDate: Date, defaultStartDate: Date) -> Bool {
+        guard defaultStartDate < currentStartDate else { return false }
+
+        let trackedMonths = Calendar.current.dateComponents([.month], from: currentStartDate, to: .now).month ?? 0
+        return trackedMonths == 0
     }
 }

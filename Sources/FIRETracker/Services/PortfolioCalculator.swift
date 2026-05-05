@@ -1,22 +1,29 @@
 import Foundation
 
 enum PortfolioCalculator {
-    static func metrics(holdings: [HoldingLot], prices: [PriceSnapshot]) -> PortfolioMetric {
+    static func metrics(holdings: [HoldingLot], prices: [PriceSnapshot], liquidations: [LiquidationLot] = []) -> PortfolioMetric {
         let priceMap = Dictionary(uniqueKeysWithValues: prices.map { ($0.ticker, $0.price) })
-        let invested = holdings.reduce(Decimal.zero) { $0 + $1.invested }
+        let liquidationsByHoldingID = Dictionary(grouping: liquidations, by: \.holdingID)
+        let invested = holdings.reduce(Decimal.zero) { partial, lot in
+            partial + LiquidationCalculator.openCostBasis(for: lot, liquidations: liquidationsByHoldingID[lot.id] ?? [])
+        }
         let currentValue = holdings.reduce(Decimal.zero) { partial, lot in
-            let performance = HoldingPerformance(holding: lot, latestPrice: priceMap[lot.ticker])
+            let performance = HoldingPerformance(holding: lot, latestPrice: priceMap[lot.ticker], liquidations: liquidationsByHoldingID[lot.id] ?? [])
             return partial + performance.currentValue
         }
-        let missingPriceCount = holdings.filter { priceMap[$0.ticker] == nil }.count
+        let missingPriceCount = holdings.filter { lot in
+            LiquidationCalculator.remainingShares(for: lot, liquidations: liquidationsByHoldingID[lot.id] ?? []) > 0 && priceMap[lot.ticker] == nil
+        }.count
         let gain = currentValue - invested
         let gainPercent = invested == 0 ? 0 : gain / invested
+        let realizedGain = LiquidationCalculator.realizedGain(from: liquidations)
         let annualizedReturn = annualizedReturn(holdings: holdings, currentValue: currentValue, invested: invested)
         return PortfolioMetric(
             invested: invested,
             currentValue: currentValue,
             gain: gain,
             gainPercent: gainPercent,
+            realizedGain: realizedGain,
             annualizedReturn: annualizedReturn,
             missingPriceCount: missingPriceCount
         )

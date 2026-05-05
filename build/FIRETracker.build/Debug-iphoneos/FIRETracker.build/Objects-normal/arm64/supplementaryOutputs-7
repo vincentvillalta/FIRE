@@ -1,0 +1,23 @@
+{
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Models/LiquidationLot.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidationLot.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidationLot.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidationLot.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidationLot.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidationLot.swiftdeps"
+  },
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Services/LiquidationCalculator.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidationCalculator.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidationCalculator.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidationCalculator.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidationCalculator.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/LiquidationCalculator.swiftdeps"
+  },
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Views/Components/MetricCard.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/MetricCard.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/MetricCard.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/MetricCard.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/MetricCard.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/MetricCard.swiftdeps"
+  }
+}

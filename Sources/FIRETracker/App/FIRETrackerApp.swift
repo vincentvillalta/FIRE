@@ -9,7 +9,7 @@ struct FIRETrackerApp: App {
 
     init() {
         do {
-            modelContainer = try ModelContainer(for: HoldingLot.self, PriceSnapshot.self, FIREProfile.self)
+            modelContainer = try ModelContainer(for: HoldingLot.self, LiquidationLot.self, PriceSnapshot.self, FIREProfile.self)
         } catch {
             fatalError("Unable to initialize SwiftData: \(error)")
         }

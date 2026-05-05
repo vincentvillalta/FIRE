@@ -1,0 +1,23 @@
+{
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Models/HoldingLot.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingLot.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingLot.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingLot.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingLot.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingLot.swiftdeps"
+  },
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Models/HoldingPerformance.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingPerformance.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingPerformance.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingPerformance.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingPerformance.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingPerformance.swiftdeps"
+  },
+  "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/Sources/FIRETracker/Views/Holdings/HoldingDetailView.swift" : {
+    "const-values" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingDetailView.swiftconstvalues",
+    "dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingDetailView.d",
+    "diagnostics" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingDetailView.dia",
+    "object" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingDetailView.o",
+    "swift-dependencies" : "/Users/vincentvillalta/Documents/Projects/FIRE/FIRETracker/build/FIRETracker.build/Debug-iphoneos/FIRETracker.build/Objects-normal/arm64/HoldingDetailView.swiftdeps"
+  }
+}
